@@ -64,5 +64,3 @@ VOLUME /var/www/html/fileadmin
 VOLUME /var/www/html/typo3conf
 VOLUME /var/www/html/typo3temp
 VOLUME /var/www/html/uploads
-# Pre configure TYPO3.
-ADD ./.build/76/AdditionalConfiguration.php /var/www/html/typo3conf/AdditionalConfiguration.php
