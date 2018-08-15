@@ -1,0 +1,31 @@
+version: '2'
+services:
+  #======================================================
+  # TYPO3
+  #======================================================
+  typo3:
+    container_name: typo3
+    build:
+      context: .
+      dockerfile: .build/76/Dockerfile
+    ports:
+    - 80:80
+    volumes:
+    - ./fileadmin:/var/www/html/fileadmin
+    - ./typo3conf:/var/www/html/typo3conf
+    - ./uploads:/var/www/html/uploads
+  #======================================================
+  # Database
+  #======================================================
+  db:
+    container_name: db
+    image: mariadb:10.1
+    ports:
+    - 3306:3306
+    volumes:
+    - .database:/var/lib/mysql
+    environment:
+    - MYSQL_ROOT_PASSWORD=1234
+    - MYSQL_USER=user
+    - MYSQL_PASSWORD=1234
+    - MYSQL_DATABASE=application
