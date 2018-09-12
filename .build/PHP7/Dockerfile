@@ -8,6 +8,7 @@ FROM php:7.${MINOR_VERSION}-apache
 # Build custom image.
 RUN apt-get update \
 	&& apt-get install -y --no-install-recommends \
+	    git \
 	# Install PHP extensions.
 	&& docker-php-ext-install -j$(nproc) \
         mysqli \
