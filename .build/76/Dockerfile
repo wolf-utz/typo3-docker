@@ -25,7 +25,9 @@ RUN apt-get update \
         soap \
         pdo_mysql \
     && pecl install APCu-4.0.10 \
+    && pecl install xdebug-2.5.5 \
     && docker-php-ext-enable apcu \
+    && docker-php-ext-enable xdebug \
     # Add composer.
 	&& curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
 	# Configure apache.

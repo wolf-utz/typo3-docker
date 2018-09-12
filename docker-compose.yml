@@ -7,7 +7,7 @@ services:
     container_name: typo3
     build:
       context: .
-      dockerfile: .build/87/Dockerfile
+      dockerfile: .build/76/Dockerfile
     ports:
     - 80:80
     volumes:
