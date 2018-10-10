@@ -1,0 +1,16 @@
+{
+    "repositories": [
+        { "type": "composer", "url": "https://composer.typo3.org/" }
+    ],
+    "require": {
+        "typo3/minimal": "^9.5",
+        "typo3/cms-scheduler": "^9.5",
+        "typo3/cms-felogin": "^9.5"
+    },
+    "extra": {
+        "typo3/cms": {
+            "cms-package-dir": "{$vendor-dir}/typo3/cms",
+            "web-dir": "html"
+        }
+    }
+}

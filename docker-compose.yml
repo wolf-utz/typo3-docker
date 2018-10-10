@@ -7,7 +7,14 @@ services:
     container_name: typo3
     build:
       context: .
-      dockerfile: .build/76/Dockerfile
+#      dockerfile: .build/62/Default.Dockerfile # TYPO3 6.2.x Default mode
+#      dockerfile: .build/62/Composer.Dockerfile # TYPO3 6.2.x Composer mode
+#      dockerfile: .build/76/Default.Dockerfile # TYPO3 7.6.x Default mode
+#      dockerfile: .build/76/Composer.Dockerfile # TYPO3 7.6.x Composer mode
+#      dockerfile: .build/87/Default.Dockerfile # TYPO3 8.7.x Default mode
+#      dockerfile: .build/87/Composer.Dockerfile # TYPO3 8.7.x Composer mode
+#      dockerfile: .build/95/Default.Dockerfile # TYPO3 9.5.x Default mode
+      dockerfile: .build/95/Composer.Dockerfile # TYPO3 9.5.x Composer mode
     ports:
     - 80:80
     volumes:
@@ -34,6 +41,7 @@ services:
   db:
     container_name: db
     image: mariadb:10.1
+    command: mysqld --character-set-server=utf8
     ports:
     - 3306:3306
     volumes:

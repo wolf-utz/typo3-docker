@@ -1,9 +1,9 @@
 #==========================================================
-# TYPO3 76 (PHP 5.6, Apache)
+# TYPO3 87 (PHP 7.0, Apache)
 #==========================================================
-# Image: php:5.6-apache
+# Image: php:7.0-apache
 #==========================================================
-FROM php:5.6-apache
+FROM php:7.0-apache
 # Build custom image.
 RUN apt-get update \
 	&& apt-get install -y --no-install-recommends \
@@ -24,8 +24,8 @@ RUN apt-get update \
         opcache \
         soap \
         pdo_mysql \
-    && pecl install APCu-4.0.10 \
-    && pecl install xdebug-2.5.5 \
+    && pecl install apcu \
+    && pecl install xdebug \
     && docker-php-ext-enable apcu \
     && docker-php-ext-enable xdebug \
     # Add composer.
@@ -33,21 +33,15 @@ RUN apt-get update \
 	# Configure apache.
 	&& a2enmod rewrite
 # Add custom php.ini.
-ADD ./.build/76/php.ini /usr/local/etc/php/conf.d/z99-additional-php.ini
+ADD ./.build/87/php.ini /usr/local/etc/php/conf.d/z99-additional-php.ini
 # Add vhost.
-ADD ./.build/76/vhost.conf /etc/apache2/sites-enabled/000-default.conf
-# Install TYPO3 76.
-RUN cd /var/www/html \
-    && curl -L get.typo3.org/7.6 --output typo3_src-7.6.tar.gz \
-    && tar -xzf typo3_src-7.6.tar.gz \
-    && ln -s typo3_src*/ typo3_src \
-    && ln -s typo3_src/typo3 typo3 \
-    && ln -s typo3_src/index.php index.php \
-    && ln -s typo3_src/_.htaccess .htaccess \
-    && mkdir typo3temp \
-    && mkdir typo3conf \
-    && mkdir fileadmin \
-    && mkdir uploads \
+ADD ./.build/87/vhost.conf /etc/apache2/sites-enabled/000-default.conf
+# Add composer.json.
+ADD ./.build/87/composer.json /var/www/composer.json
+# Install TYPO3 87.
+RUN cd /var/www \
+    && composer install \
+    && cd html \
     && touch FIRST_INSTALL \
     && chown -R www-data:www-data .
 # Clean up.
@@ -64,5 +58,4 @@ RUN apt-get clean \
 # Configure volumes.
 VOLUME /var/www/html/fileadmin
 VOLUME /var/www/html/typo3conf
-VOLUME /var/www/html/typo3temp
 VOLUME /var/www/html/uploads
