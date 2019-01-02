@@ -40,11 +40,12 @@ ADD ./.build/95/vhost.conf /etc/apache2/sites-enabled/000-default.conf
 # Add composer.json.
 ADD ./.build/95/composer.json /var/www/composer.json
 # Install TYPO3 95.
-RUN cd /var/www \
+RUN chown -R www-data:www-data /var/www/
+RUN cd /var/www/ \
     && composer install \
-    && cd html \
-    && touch FIRST_INSTALL \
     && chown -R www-data:www-data .
+RUN cd /var/www/html/ \
+    && touch FIRST_INSTALL \
 # Clean up.
 RUN apt-get clean \
     && apt-get -y purge \
